@@ -13,6 +13,7 @@ function Board(props) {
                     key={index}
                     pos={index}
                     moveCell={props.moveCells(cell)}
+                    checkWin={props.checkWin}
                 />
             )}
         </div>

@@ -12,12 +12,16 @@ const emptyValue = null;
 
 const createField = () => {
     let arr = helper.shuffleArray([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
-    return [...arr, emptyValue];
+    return [...arr, emptyValue]
 }
 
 function App() {
 
     const [field, setField] = useState(createField);
+
+    const [moves, setMoves] = useState(0)
+
+    const increaseMoves = () => setMoves(moves + 1)
 
     useEffect(() => {
         checkWin()
@@ -29,6 +33,8 @@ function App() {
         if (!helper.canBeMoved(elementIndex, emptyIndex)) return prevState;
 
         if (element === null) return prevState;
+
+        increaseMoves()
 
         return prevState.map((el) => {
             if (el === element) return emptyValue;
@@ -46,24 +52,31 @@ function App() {
 
     return (
     <div className="App">
-        {
-            checkWin()
-            ?
-            <div className="overlay">
+
+
+            <div className="overlay"
+                 style={{
+                     display: checkWin() ? 'block' : 'none',
+                 }}>
                 <div className="overlayContainer">
                     <h1 className="overlayText">You won!</h1>
+                    <h5>Your record: {moves}</h5>
                     <button className="overlayButton" onClick={() => setField(createField())}>New game</button>
                 </div>
             </div>
-            :
-            null
-        }
+
+
 
         <h1>15 puzzles</h1>
-        <Board field={field} moveCells={moveCells}/>
+        <div className="main">
+            <Board className="board" field={field} moveCells={moveCells} checkWin={checkWin}/>
+            <h4>Moves: {moves}</h4>
+        </div>
+
         <div className="resetButton">
             <button onClick={() => setField(createField())}>Shuffle</button>
         </div>
+
     </div>
     );
 }

@@ -5,14 +5,27 @@
   line-height: 150px;
   text-align: center;
   border: 1px solid #4cc281;
+  cursor: pointer;
+
+
 }
 
 .Cell:hover {
   border: 1px solid white;
 }
 
+.win {
+  color: white;
+}
+
+.default {
+  color: #4cc281;
+}
+
+
 h1 {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
+
 }
