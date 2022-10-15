@@ -1,0 +1,7 @@
+.Board {
+  border: #4cc281 2px solid;
+  display: grid;
+  text-align: center;
+  justify-content: center;
+  grid-template-columns: repeat(4, 150px);
+}

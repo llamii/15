@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import Board from "./components/Board/Board";
+import "./App.scss";
+import {useState} from "react";
+
+import Helpers from "./helpers";
+const helper = new Helpers();
+
+const createField = () => {
+    let arr = helper.shuffleArray([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+    arr.push(null)
+    return arr
+}
 
 function App() {
-  return (
+
+    const [field, setField] = useState(createField());
+
+    const moveCells = (element) => setField(prevState => {
+        prevState.map(i => {
+            if (i === element) return null;
+            if (i === null) return element;
+            return i;
+        })
+    })
+
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>Shuffle game</h1>
+        <Board field={field} moveCells={moveCells}/>
+        <div className="resetButton">
+            <button onClick={() => setField(createField())}>Reset</button>
+        </div>
     </div>
-  );
+    );
 }
 
 export default App;
