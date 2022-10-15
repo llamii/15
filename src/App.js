@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import Board from "./components/Board/Board";
 
@@ -19,6 +19,10 @@ function App() {
 
     const [field, setField] = useState(createField);
 
+    useEffect(() => {
+        checkWin()
+    })
+
     const moveCells = (element) => () => setField(prevState => {
         const [elementIndex, emptyIndex] = [field.indexOf(element), field.indexOf(emptyValue)];
 
@@ -33,12 +37,32 @@ function App() {
         })
     })
 
+    const checkWin = () => {
+        for (let i = 0; i < field.length - 2; i++) {
+            if (field[i] + 1 !== field[i + 1]) return false;
+        }
+        if (field[15] == null) return true;
+    }
+
     return (
     <div className="App">
-        <h1>Shuffle game</h1>
+        {
+            checkWin()
+            ?
+            <div className="overlay">
+                <div className="overlayContainer">
+                    <h1 className="overlayText">You won!</h1>
+                    <button className="overlayButton" onClick={() => setField(createField())}>New game</button>
+                </div>
+            </div>
+            :
+            null
+        }
+
+        <h1>15 puzzles</h1>
         <Board field={field} moveCells={moveCells}/>
         <div className="resetButton">
-            <button onClick={() => setField(createField())}>Reset</button>
+            <button onClick={() => setField(createField())}>Shuffle</button>
         </div>
     </div>
     );
