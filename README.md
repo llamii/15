@@ -1,5 +1,8 @@
 # Fancy 15-shuffle game
 
+## Live demo
+https://15-afaffbpt1-ooubree.vercel.app/
+
 ## Installation
 
 ```bash
